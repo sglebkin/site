@@ -35,7 +35,7 @@ bottom: 5px;}
      text-align: left;
     }
 h3{
-/*    color: #336ab2;*/
+    color: #005493;
     margin-top: 0;
     margin-bottom: 0;}
 h4{
@@ -81,3 +81,7 @@ margin-bottom: 15px;}
 }
 
 .coauthor a{text-decoration: none;}
+
+.n {font-style: normal; 
+font-weight: normal;
+color: black;}
