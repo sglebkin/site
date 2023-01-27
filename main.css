@@ -82,6 +82,32 @@ margin-bottom: 15px;}
 
 .coauthor a{text-decoration: none;}
 
+a{text-decoration: none;}
 .n {font-style: normal; 
 font-weight: normal;
 color: black;}
+/*
+
+details {
+  user-select: none;
+}
+
+details>summary span.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s;
+  
+}
+
+details[open] summary span.icon {
+  transform: rotate(180deg);
+}
+
+summary {
+  display: flex;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}*/
