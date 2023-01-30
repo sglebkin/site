@@ -35,7 +35,7 @@ bottom: 5px;}
      text-align: left;
     }
 h3{
-    color: #005493;
+/*    #color: #005493;*/
     margin-top: 0;
     margin-bottom: 0;}
 h4{
@@ -43,8 +43,8 @@ h4{
      margin-bottom: 0;
     }
 
-a:link{color: black}
-a:visited{color: black}
+a:link{color: #005493;}
+a:visited{color: #005493;}
 a:hover{
 text-decoration: none;}
 
@@ -82,7 +82,9 @@ margin-bottom: 15px;}
 
 .coauthor a{text-decoration: none;}
 
-a{text-decoration: none;}
+a{text-decoration: none;
+
+}
 .n {font-style: normal; 
 font-weight: normal;
 color: black;}
