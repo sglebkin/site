@@ -11,8 +11,8 @@ body {
 margin-left: 30px;
 margin-right: 30px;}
 
-.contacts  {position: relative;
-   height: 51px;
+.contacts  {position: absolute;
+   height: 48px;
 bottom: 0px;
   }
 
