@@ -26,6 +26,7 @@ body { box-sizing: border-box;
 
 .name h2{ color: black;
     text-align: center;
+     font-family: Helvetica;
 }
 
 
@@ -33,18 +34,20 @@ p {margin-left: 0px;
     margin-top: 3pt;
     margin-bottom: 6pt;
     }
-.contacts_l { 
+.contacts_l {  font-family: Helvetica;
 
         display: block;
     }
-.contacts_r {font-family:"Lucida Console", Monaco, monospace;  
-    float: right;
+.contacts_r { font-family: Helvetica;
+    /*
+    font-family:"Lucida Console", Monaco, monospace; */  
+    float: right;  
     text-align: right;
     display: block;
   }
 
 
-.contacts_r a {
+.contacts_r a {  font-family: Helvetica;
     text-decoration: none;
  }
 
@@ -75,9 +78,10 @@ a:hover{
 text-decoration: none;}
 
  .line{width: 170mm;
-    background:black;
-    border: 0px;
-    height: 1pt;    display: block;
+    background: none;
+    border: 1px;
+    height: 2pt;    display: block;
+   
   }
 
 
@@ -95,31 +99,38 @@ color: black;}
 .getpdf a{color: #888888;
  text-decoration: underline;}
 .getpdf h4{
-    font-family:"Lucida Console", Monaco, monospace;
+    font-family: Helvetica;
     text-align: center;
    padding-top: 2mm;
 }
 
+   .last-updated{  float: left;  
+    text-align: left;
+    display: block;}
+
 @media all {
-	.page-break	{ display: none; }
+	.page-break	{ display: none;    
+    }
+   
 }
 
 
 @media print { 
     .getpdf {display: none;}
-    .getpdf .h4{margin: 0 0 0 0;}
+    .getpdf .h4{margin: -12pt 0 0 0;}
     body { 
         box-sizing: border-box;
     padding: 0 0 0 0;}
     .container {
         box-sizing: border-box;
 /*   border-style: dashed;*/
-    height: 293mm;
+    height: 297mm;
     width: 210mm;
-        padding: 10mm 20mm 20mm 20mm;
+        padding: 20mm 20mm 20mm 20mm;
   margin: 0 0 0 0;
        }
     .page-break	{ display: block; page-break-before: always; }
+    /*.last-updated{text-align: right}*/
     .null{display: none;}
      h3{color: #005493;}
 }
