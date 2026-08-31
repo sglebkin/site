@@ -1,3 +1,9 @@
 .idea
 .vscode
 .DS_Store
+
+# Faculty Activity Report edition of the CV -- local only.
+# This repo publishes to sglebkin.com, so FAR_CV.pdf must never be committed:
+# it highlights unpublished work (see the {faronly} block in CV.tex).
+FAR_CV.tex
+FAR_CV.pdf
