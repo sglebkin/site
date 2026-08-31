@@ -100,6 +100,7 @@
 \setlength{\parindent}{0in}
 
 \usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
 
 %% Reference the last page in the page number
 %
@@ -173,8 +174,15 @@ anchorcolor = blue]{hyperref}
 % The section headings
 %
 % Usage: \section{section name}
+\newsavebox{\cvsecbox}
 \renewcommand{\section}[1]{\pagebreak[3]%
     \hyphenpenalty=10000%
+    % The heading is \smash'ed to zero height so it does not push the body
+    % text down. That also hides its real height from the page breaker, which
+    % can strand a tall marginal heading at the foot of a page while its
+    % content starts on the next one. Measure it and demand that much room.
+    \sbox{\cvsecbox}{\scshape\parbox[t]{\marginparwidth}{\raggedright #1}}%
+    \Needspace{\dimexpr\ht\cvsecbox+\dp\cvsecbox+\baselineskip\relax}%
     \vspace{1.3\baselineskip}%
     \phantomsection\addcontentsline{toc}{section}{#1}%
     \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\raggedright #1}}}%
@@ -233,6 +241,19 @@ anchorcolor = blue]{hyperref}
 \providecommand\Matlab{\textsc{Matlab}}
 \usepackage{array, xcolor}
 \definecolor{lightgray}{gray}{0.8}
+
+% \new{...} marks material added since the last Faculty Activity Report.
+% Plain in CV.pdf; highlighted yellow in FAR_CV.pdf, which sets \FARmode and
+% \input's this file. lua-ul is used because soul's \hl cannot digest \href,
+% so FAR_CV.tex must be built with lualatex (see the header of that file).
+\ifdefined\FARmode
+  \usepackage{luacolor}
+  \usepackage{lua-ul}
+  \definecolor{farhl}{RGB}{255,240,90}
+  \newcommand{\new}[1]{\highLight[farhl]{#1}}
+\else
+  \newcommand{\new}[1]{#1}
+\fi
 \newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
 \newcolumntype{R}{p{0.8\textwidth}}
 \newcommand\VRule{\color{lightgray}\vrule width 0.5pt}
@@ -309,14 +330,14 @@ Asset Pricing in Imperfect Markets, Information Economics, Market Microstructure
 \textbf{Journal of Financial Economics}, 2023. \\
 \vspace{-.1in}
 
-5. Sergei Glebkin, Semyon Malamud, and Alberto Teguia,
+\new{5. Sergei Glebkin, Semyon Malamud, and Alberto Teguia,
 \href{https://sglebkin.com/GAM.pdf}{Granularity in Asset Markets},
-\textbf{Journal of Finance}, forthcoming. \\
+\textbf{Journal of Finance}, forthcoming.} \\
 \vspace{-.1in}
 
-6. Efstathios Avdis and Sergei Glebkin,
+\new{6. Efstathios Avdis and Sergei Glebkin,
 \href{https://sglebkin.com/CHILE.pdf}{CHILE},
-\textbf{Review of Financial Studies}, conditionally accepted. \\
+\textbf{Review of Financial Studies}, conditionally accepted.} \\
 \vspace{-.1in}
 
 \section{Working Papers}
@@ -330,6 +351,17 @@ Asset Pricing in Imperfect Markets, Information Economics, Market Microstructure
 \href{https://sglebkin.com/FX.pdf}{Price Formation in the Foreign Exchange Market}.\\
 \vspace{-.1in}
 
+% \sloppy: the \section macro leaves \hyphenpenalty=10000 in force, so the long
+% author list here cannot be hyphenated and would otherwise run into the margin.
+{\sloppy
+\new{9. Sergei Glebkin, Bryan Kelly, Semyon Malamud, Matias Palmunen, and Mohammad
+Pourmohammadi, Complex Capital Markets.}\\
+\vspace{-.1in}\par}
+
+\new{10. Efstathios Avdis, Christoph Frei, Sergei Glebkin, and Raphael Huwyler,
+Persistent Trade and Aggregate Disagreement in Competitive Dynamic Markets.}\\
+\vspace{-.1in}
+
 
 
 
@@ -338,10 +370,10 @@ Asset Pricing in Imperfect Markets, Information Economics, Market Microstructure
 \section{Conference Presentations  \& Invited Seminars:}
 \textit{Invited seminars are highlighted in \textbf{bold}; c=conference presentations by co-authors. Seminars and conferences include scheduled ones. Conference discussions are listed separately.}
 
-\underline{2026:} \textbf{London Business School, Princeton University,} American Finance Association Meeting, INSEAD Finance Symposium (d)
+\underline{2026:} \new{\textbf{London Business School, Princeton University,} American Finance Association Meeting, INSEAD Finance Symposium (d)}
 \vspace{0.5em}
 
-\underline{2025:} Finance Theory Group Meeting at UT Austin, Financial Intermediation Research Society (d), INSEAD Finance Symposium (d)
+\underline{2025:} \new{Finance Theory Group Meeting at UT Austin}, Financial Intermediation Research Society (d), INSEAD Finance Symposium (d)
 \vspace{0.5em}
 
 \underline{2024:} American Finance Association Meeting, INSEAD Finance Symposium (d)
@@ -385,7 +417,7 @@ Asset Pricing in Imperfect Markets, Information Economics, Market Microstructure
 \vspace{0.05in}
 \section{Conference Discussions}
 
-\textit{Probability Pricing}, by Eduardo D\'avila, Cecilia Parlatore, and Ansgar Walther, 2026 American Finance Association Meeting. \\
+\new{\textit{Probability Pricing}, by Eduardo D\'avila, Cecilia Parlatore, and Ansgar Walther, 2026 American Finance Association Meeting.} \\
 \vspace{-.1in}
 
 \textit{How Beliefs Respond to News: Implications for Asset Prices}, by Ian Dew-Becker, Stefano Giglio, and Pooya Molavi, 2025 INSEAD Finance Symposium. \\
@@ -451,7 +483,7 @@ INSEAD \textbf{Dean's Commendation for Excellence in MBA Teaching}, 2021
 \vspace{0.05in}
 \section{PhD Mentoring}
 
-Advisor of Nikola Kiprijanovski (INSEAD PhD 2026, placed at American University of Sharjah)\\
+Advisor of Nikola Kiprijanovski (INSEAD PhD 2026, \new{placed at American University of Sharjah})\\
 \vspace{-.1in}
 
 
