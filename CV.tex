@@ -246,13 +246,17 @@ anchorcolor = blue]{hyperref}
 % Plain in CV.pdf; highlighted yellow in FAR_CV.pdf, which sets \FARmode and
 % \input's this file. lua-ul is used because soul's \hl cannot digest \href,
 % so FAR_CV.tex must be built with lualatex (see the header of that file).
+% Material inside a {faronly} block appears ONLY in FAR_CV.pdf -- use it for
+% work not yet public (e.g. papers whose drafts are not posted on the website).
 \ifdefined\FARmode
   \usepackage{luacolor}
   \usepackage{lua-ul}
   \definecolor{farhl}{RGB}{255,240,90}
   \newcommand{\new}[1]{\highLight[farhl]{#1}}
+  \includecomment{faronly}
 \else
   \newcommand{\new}[1]{#1}
+  \excludecomment{faronly}
 \fi
 \newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
 \newcolumntype{R}{p{0.8\textwidth}}
@@ -351,6 +355,9 @@ Asset Pricing in Imperfect Markets, Information Economics, Market Microstructure
 \href{https://sglebkin.com/FX.pdf}{Price Formation in the Foreign Exchange Market}.\\
 \vspace{-.1in}
 
+% FAR edition only, until the drafts are posted; then move these two out of
+% the {faronly} block so they appear in the public CV as well.
+\begin{faronly}
 % \sloppy: the \section macro leaves \hyphenpenalty=10000 in force, so the long
 % author list here cannot be hyphenated and would otherwise run into the margin.
 {\sloppy
@@ -361,6 +368,7 @@ Pourmohammadi, Complex Capital Markets.}\\
 \new{10. Efstathios Avdis, Christoph Frei, Sergei Glebkin, and Raphael Huwyler,
 Persistent Trade and Aggregate Disagreement in Competitive Dynamic Markets.}\\
 \vspace{-.1in}
+\end{faronly}
 
 
 
