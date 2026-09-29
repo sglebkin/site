@@ -1,0 +1,105 @@
+body.paper-page {
+    box-sizing: border-box;
+    width: min(700px, 100%);
+    margin: 0 auto 60px;
+    padding: 24px 30px;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+}
+
+.paper-page nav {
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+.paper-page h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.paper-page .authors {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.paper-page .publication,
+.paper-page .version,
+.paper-page .paper-links {
+    margin: 6px 0;
+}
+
+.paper-page .version {
+    color: #555;
+    font-size: 14px;
+}
+
+.paper-page h2 {
+    margin: 22px 0 8px;
+    font-size: 19px;
+}
+
+.paper-page .abstract {
+    margin: 0;
+}
+
+.paper-page a:hover {
+    text-decoration: underline;
+}
+
+.paper-page a:focus-visible,
+.paper-page button:focus-visible,
+.paper-page pre:focus-visible {
+    outline: 2px solid #005493;
+    outline-offset: 3px;
+}
+
+.paper-page .citation-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.paper-page button {
+    padding: 7px 12px;
+    border: 1px solid #005493;
+    border-radius: 3px;
+    background: white;
+    color: #005493;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.paper-page button:hover {
+    background: #f2f7fb;
+}
+
+.paper-page .copy-status {
+    font-size: 14px;
+    color: #555;
+}
+
+.paper-page pre {
+    margin: 12px 0 0;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #f7f7f7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+    line-height: 1.55;
+    tab-size: 2;
+}
+
+@media (max-width: 480px) {
+    body.paper-page {
+        padding: 20px;
+    }
+
+    .paper-page h1 {
+        font-size: 25px;
+    }
+}
