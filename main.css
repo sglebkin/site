@@ -76,6 +76,15 @@ margin-right: 30px;}
 .paper{margin-top: 15px;
 margin-bottom: 15px;}
 
+.paper > .coauthors {
+    margin: 3px 0;
+    text-align: left;
+}
+
+.paper > details > summary {
+    cursor: pointer;
+}
+
 .coauthor{font-weight: normal; 
 /*    font-style: italic;*/
 }
