@@ -25,13 +25,20 @@ body { box-sizing: border-box; padding: 1rem; background: inherit; }
   margin: 0 auto .75rem;
 }
 .rmt-display-controls select { font: inherit; padding: .35rem .5rem; }
-iframe {
-  display: block;
-  width: 100%;
-  max-width: var(--rmt-width);
-  height: 640px;
+.rmt-stage {
+  position: relative;
   margin: 0 auto;
+  overflow: hidden;
+}
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 800px;
+  height: 640px;
   border: 0;
+  transform-origin: top left;
 }
 @media (pointer: coarse) { .rmt-display-controls select { min-height: 44px; } }
 </style>
@@ -45,11 +52,7 @@ iframe {
     <option value="1040">Large</option>
   </select>
 </div>
-<script>
-document.getElementById('rmt-size').addEventListener('change', event => {
-  document.documentElement.style.setProperty('--rmt-width', event.target.value + 'px');
-});
-</script>
+<div class="rmt-stage">
 <iframe id="codex-visualization" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Random matrix concentration" data-srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
 &lt;head&gt;
@@ -2464,12 +2467,33 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
+</div>
 <script>(() => {
   const frame = document.getElementById("codex-visualization");
   if (!(frame instanceof HTMLIFrameElement)) {
     return;
   }
-  let viewportHeight = globalThis.innerHeight;
+  const stage = document.querySelector('.rmt-stage');
+  const sizeControl = document.getElementById('rmt-size');
+  let contentHeight = 640;
+  const fitIllustration = () => {
+    const bodyStyle = getComputedStyle(document.body);
+    const sidePadding = parseFloat(bodyStyle.paddingLeft) + parseFloat(bodyStyle.paddingRight);
+    const availableWidth = Math.max(1, document.documentElement.clientWidth - sidePadding);
+    const width = Math.min(Number(sizeControl.value), availableWidth);
+    const viewportHeight = globalThis.visualViewport?.height || globalThis.innerHeight;
+    const top = stage.getBoundingClientRect().top + globalThis.scrollY;
+    const availableHeight = Math.max(1, viewportHeight - top - parseFloat(bodyStyle.paddingBottom) - 2);
+    const scale = Math.min(1, availableHeight / contentHeight);
+    frame.style.width = width + 'px';
+    frame.style.height = contentHeight + 'px';
+    frame.style.transform = `scale(${scale})`;
+    stage.style.width = width * scale + 'px';
+    stage.style.height = contentHeight * scale + 'px';
+    document.documentElement.style.setProperty('--rmt-width', width * scale + 'px');
+  };
+  sizeControl.addEventListener('change', fitIllustration);
+  fitIllustration();
   const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
     globalThis.location.pathname,
     globalThis.location.search,
@@ -2570,7 +2594,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         height >= 0 &&
         height <= 10_000
       ) {
-        frame.style.height = Math.ceil(height) + "px";
+        contentHeight = Math.max(1, Math.ceil(height));
+        fitIllustration();
       }
       return;
     }
@@ -2634,13 +2659,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     return;
   }
   globalThis.addEventListener("resize", () => {
-    const height = Number.parseFloat(frame.style.height);
-    if (!Number.isFinite(height) || height <= viewportHeight) {
-      frame.style.removeProperty("height");
-    }
-    viewportHeight = globalThis.innerHeight;
+    fitIllustration();
     channel.port1.postMessage({ type: "measure" });
   });
+  globalThis.visualViewport?.addEventListener('resize', fitIllustration);
   frame.addEventListener(
     "load",
     () => {
