@@ -6,9 +6,50 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Random matrix concentration</title>
-<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+<style>
+:root {
+  color-scheme: light dark;
+  --rmt-width: 800px;
+  background: light-dark(rgb(255 255 255), rgb(24 24 24));
+  color: light-dark(rgb(26 28 31), rgb(255 255 255));
+  font-family: Arial, sans-serif;
+}
+html, body { margin: 0; }
+body { box-sizing: border-box; padding: 1rem; background: inherit; }
+.rmt-display-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .5rem;
+  max-width: var(--rmt-width);
+  margin: 0 auto .75rem;
+}
+.rmt-display-controls select { font: inherit; padding: .35rem .5rem; }
+iframe {
+  display: block;
+  width: 100%;
+  max-width: var(--rmt-width);
+  height: 640px;
+  margin: 0 auto;
+  border: 0;
+}
+@media (pointer: coarse) { .rmt-display-controls select { min-height: 44px; } }
+</style>
 </head>
 <body>
+<div class="rmt-display-controls">
+  <label for="rmt-size">Size</label>
+  <select id="rmt-size">
+    <option value="640">Small</option>
+    <option value="800" selected>Normal</option>
+    <option value="1040">Large</option>
+  </select>
+</div>
+<script>
+document.getElementById('rmt-size').addEventListener('change', event => {
+  document.documentElement.style.setProperty('--rmt-width', event.target.value + 'px');
+});
+</script>
 <iframe id="codex-visualization" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Random matrix concentration" data-srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
 &lt;head&gt;
